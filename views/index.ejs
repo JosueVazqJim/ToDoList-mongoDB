@@ -1,0 +1,124 @@
+<%- include('partials/header.ejs'); -%>
+
+<div class="container">
+  <!-- Available Lists Section -->
+  <div class="lists-section">
+    <h2>Available Lists</h2>
+    <ul>
+      <% for(let list of availableLists){ %>
+        <li><a href="/<%= list %>" class="list-link"><%= list %></a></li>
+      <% } %>
+      <li>
+        <a href="/" class="list-button">Every Items</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Items Section -->
+  <div class="items-section">
+    <div class="title" id="heading">
+      <h1><%= listTitle %></h1>
+    </div>
+
+    <div class="box">
+      <table class="items-table">
+      <thead>
+        <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Due Date</th>
+        <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let item of listItems){ %>
+        <tr class="item">
+          <!-- Checkbox for marking item as completed -->
+          <td>
+          <form action="/check" method="post" style="display:inline;">
+            <input type="hidden" name="id" value="<%= item.id %>">
+            <input type="checkbox" name="completed" onchange="this.form.submit()" <%= item.completed ? 'checked' : '' %> class="checkbox">
+          </form>
+          </td>
+
+          <!-- Item Title -->
+          <td>
+          <p id="title<%=item.id%>" class="item-title"><%= item.title %></p>
+          <input id="inputTitle<%=item.id%>" type="text" name="updatedItemTitle" value="<%= item.title %>" autocomplete="off" class="edit-input" hidden>
+          </td>
+
+          <!-- Due Date -->
+          <td>
+          <p id="dueDate<%=item.id%>" class="due-date"><%= new Date(item.dueDate).toLocaleDateString() %></p>
+          <input id="inputDueDate<%=item.id%>" type="date" name="updatedItemDueDate" value="<%= new Date(item.dueDate).toISOString().split('T')[0] %>" class="edit-input" hidden>
+          </td>
+
+          <!-- Actions -->
+          <td>
+          <!-- Delete Button -->
+          <form action="/delete" method="post" style="display:inline;">
+            <button type="submit" class="icon-button" name="id" value="<%= item.id %>">
+            <img class="icon" src="/assets/icons/trash.svg" alt="Delete">
+            </button>
+          </form>
+
+          <!-- Edit Form -->
+          <form class="edit-form" action="/edit" method="post" style="display:inline;">
+            <input type="hidden" name="updatedItemId" value="<%= item.id %>">
+            <select id="inputListName<%=item.id%>" name="updatedItemListName" class="edit-input" hidden onchange="toggleNewListInput('<%=item.id%>')">
+            <% for(let list of availableLists){ %>
+            <option value="<%= list %>" <%= list === listTitle ? 'selected' : '' %>><%= list %></option>
+            <% } %>
+            </select>
+            <button id="done<%=item.id%>" type="submit" class="icon-button" hidden><img class="icon" src="/assets/icons/check-solid.svg" alt="Save"></button>
+          </form>
+
+          <!-- Edit Button -->
+          <button id="edit<%=item.id%>" onclick="handler('<%=item.id%>')" class="icon-button"><img class="icon" src="/assets/icons/pencil-solid.svg" alt="Edit"></button>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <!-- Add New Item Form -->
+    <form class="add-item-form box" action="/add" method="post">
+      <h2>Add New Item</h2>
+      <input type="text" name="newItemTitle" placeholder="Title" class="form-input" required>
+      <input type="date" name="newItemDueDate" placeholder="Due Date" class="form-input" required>
+      <select name="newItemListName" class="form-input" required>
+        <option value="">Select a list</option>
+        <% for(let list of availableLists){ %>
+          <option value="<%= list %>"><%= list %></option>
+        <% } %>
+        <option value="new">Create new list</option>
+      </select>
+      <input type="text" name="newListName" placeholder="New list name" class="form-input" style="display: none;">
+      <button type="submit" class="add-button">+</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function handler(id) {
+    // Show edit inputs and hide static text
+    document.getElementById("title" + id).hidden = true;
+    document.getElementById("dueDate" + id).hidden = true;
+    document.getElementById("edit" + id).hidden = true;
+    document.getElementById("inputTitle" + id).hidden = false;
+    document.getElementById("inputDueDate" + id).hidden = false;
+    document.getElementById("inputListName" + id).hidden = false;
+    document.getElementById("done" + id).hidden = false;
+  }
+
+  // Show new list name input when "Create new list" is selected
+  document.querySelector('select[name="newItemListName"]').addEventListener('change', function() {
+    const newListInput = document.querySelector('input[name="newListName"]');
+    newListInput.style.display = this.value === 'new' ? 'block' : 'none';
+  });
+</script>
+
+<%- include('partials/footer.ejs'); -%>

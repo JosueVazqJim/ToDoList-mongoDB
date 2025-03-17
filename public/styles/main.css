@@ -1,0 +1,141 @@
+html {
+	background-color: #e4e9fd;
+	background-image: -webkit-linear-gradient(65deg, #334b8e 50%, #e4e9fd 50%);
+	min-height: 100vh;
+	font-family: "Helvetica Neue", sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+  }
+  
+  .container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	gap: 20px;
+  }
+  
+  /* Available Lists Section */
+  .lists-section {
+	flex: 1; /* Ocupa 1 parte del espacio */
+	background: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+	max-width: 200px; /* Reducimos el ancho máximo */
+  }
+  
+  .lists-section ul {
+	list-style: none;
+	padding: 0;
+  }
+  
+  .lists-section li {
+	margin: 10px 0;
+  }
+  
+  .list-link,
+  .list-button {
+	text-decoration: none;
+	color: #333;
+	padding: 8px 12px;
+	display: block;
+	border-radius: 5px;
+	transition: background 0.3s;
+  }
+  
+  .list-link:hover,
+  .list-button:hover {
+	background: #dcdcdc;
+  }
+  
+  /* Items Section */
+  .items-section {
+	flex: 3; /* Aumentamos a 3 partes del espacio */
+	background: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+	max-width: 1000px; /* Reducimos el ancho máximo */
+  }
+  
+  .items-table {
+	width: 100%;
+	border-collapse: collapse;
+  }
+  
+  .items-table th,
+  .items-table td {
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+	text-align: left;
+  }
+  
+  .items-table th {
+	background: #f4f4f4;
+  }
+  
+  .icon-button {
+	border: none;
+	background: none;
+	cursor: pointer;
+  }
+  
+  .icon {
+	width: 20px;
+	height: 20px;
+  }
+  
+  /* Add New Item Form */
+  .add-item-form {
+	flex: 1; /* Ocupa 1 parte del espacio */
+	background: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+	align-self: flex-start;
+	max-width: 200px; /* Reducimos el ancho máximo */
+  }
+  
+  .form-input {
+	width: 90%; /* Ajustamos el ancho de los inputs */
+	padding: 10px;
+	margin: 10px 0;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+  }
+  
+  .add-button {
+	display: block;
+	width: 100%;
+	padding: 10px;
+	background: #334b8e;
+	color: white;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+  }
+  
+  .add-button:hover {
+	background: #334b8e;
+  }
+
+  footer {
+	flex: 0 0 auto;
+	color: white;
+	text-align: center;
+  }
+
+.title {
+color: #333;
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: #334b8e;
+color: white;
+border-radius: 5px;
+margin-bottom: 10px;
+}
